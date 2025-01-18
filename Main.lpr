@@ -12,6 +12,11 @@ uses
   ProductUnit,
   RepositoriesUnit;
 
+function ComparePersonNames(a, b : Pointer) : integer;
+begin
+  Result := CompareStr(TPerson(a).Name, TPerson(b).Name);
+end;
+
 var
   DbServices: TDbServices;
   Entities: TEntities;
@@ -19,7 +24,9 @@ var
   product: TProduct;
   cart: TCart;
   i: integer;
+  search: String;
   index: longword;
+  personClone: TList;
 begin
   try
     DbServices := TDbServices.Create();
@@ -61,14 +68,26 @@ begin
 
     WriteLn('==============================================');
     WriteLn('Quick search by index:');
-    index := TPerson.hash('Clarke Oliver');
+    search:='Clarke Oliver';
+    index := TPerson.hash(search);
     for i := 0 to Entities.persons.Count - 1 do
     begin
-      if TPerson(Entities.persons[i]).IX_Name = index then
+      if (TPerson(Entities.persons[i]).IX_Name = index) and (TPerson(Entities.persons[i]).Name=search) then
       begin
         WriteLn(Entities.PersonToString(TPerson(Entities.persons[i])));
         Break;
       end;
+    end;
+
+    WriteLn('==============================================');
+    WriteLn('Sort by name');
+    WriteLn();
+
+    personClone:=Entities.ClonePersons();
+    personClone.Sort(@ComparePersonNames);
+    for i:=0 to personClone.Count-1 do
+    begin
+      WriteLn(TPerson(personClone[i]).Name+' (Id: ' + IntToStr(TPerson(personClone[i]).Id)+')');
     end;
 
   finally

@@ -23,6 +23,8 @@ type
     function PersonToString(person: TPerson; projection: byte = 0): string; virtual;
     /// Get Person data as readable
     function ProductToString(product: TProduct; projection: byte = 0): string; virtual;
+    /// clone person to another list
+    function ClonePersons(): TList;
   end;
 
 
@@ -160,5 +162,15 @@ begin
   end;
 end;
 
+function TEntities.ClonePersons(): TList;
+var
+  i: integer;
+begin
+  Result:=TList.Create();
+  for i:=0 to persons.Count-1 do
+  begin
+    Result.Add(TPerson(persons[i]));
+  end;
+end;
 
 end.
