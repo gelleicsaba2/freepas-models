@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="12"/>
+    <General>
+      <Flags>
+        <MainUnitHasCreateFormStatements Value="False"/>
+        <MainUnitHasTitleStatement Value="False"/>
+        <MainUnitHasScaledStatement Value="False"/>
+      </Flags>
+      <SessionStorage Value="InProjectDir"/>
+      <Title Value="Main"/>
+      <UseAppBundle Value="False"/>
+      <ResourceType Value="res"/>
+    </General>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+    <RunParams>
+      <FormatVersion Value="2"/>
+    </RunParams>
+    <Units>
+      <Unit>
+        <Filename Value="Main.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Models/cartunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="CartUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Models/modelsunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ModelsUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Models/personunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="PersonUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Models/productunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ProductUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Utils/dbservicesunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="DbServicesUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="DB/Persons.csv"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="DB/Products.csv"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="Services/repositoriesunit.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="RepositoriesUnit"/>
+      </Unit>
+      <Unit>
+        <Filename Value="DB/Carts.csv"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="Main"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="Models;Utils;Services"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Debugging>
+        <DebugInfoType Value="dsDwarf3"/>
+      </Debugging>
+    </Linking>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions>
+      <Item>
+        <Name Value="EAbort"/>
+      </Item>
+      <Item>
+        <Name Value="ECodetoolError"/>
+      </Item>
+      <Item>
+        <Name Value="EFOpenError"/>
+      </Item>
+    </Exceptions>
+  </Debugging>
+</CONFIG>
