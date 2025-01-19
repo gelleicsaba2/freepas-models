@@ -14,7 +14,11 @@ uses
 
 function ComparePersonNames(a, b : Pointer) : integer;
 begin
-  Result := CompareStr(TPerson(a).Name, TPerson(b).Name);
+  // slower solution with string campares
+  // Result := CompareStr(TPerson(a).Name, TPerson(b).Name);
+
+  // faster solution with indexes
+  Result := TPerson(a).SX_Name - TPerson(b).SX_Name;
 end;
 
 var
@@ -39,6 +43,7 @@ begin
     cart := TCart.Create();
     // Attach persons table to repository
     Entities.persons := DbServices.ReadCsvToModel('Persons', person);
+    Entities.BuildSortIndexes();
     // Attach products table to repository
     Entities.products := DbServices.ReadCsvToModel('Products', product);
     // Attach carts table to repository

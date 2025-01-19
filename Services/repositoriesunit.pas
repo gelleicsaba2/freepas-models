@@ -25,6 +25,8 @@ type
     function ProductToString(product: TProduct; projection: byte = 0): string; virtual;
     /// clone person to another list
     function ClonePersons(): TList;
+    /// build sort indexes (this must be called if we insert a record)
+    procedure BuildSortIndexes();
   end;
 
 
@@ -54,6 +56,7 @@ begin
     begin
       a := c;
       b := c;
+      found := True;
     end;
   end;
   if found or (TPerson(persons[a]).Id = PersonId) then
@@ -166,10 +169,77 @@ function TEntities.ClonePersons(): TList;
 var
   i: integer;
 begin
-  Result:=TList.Create();
-  for i:=0 to persons.Count-1 do
+  Result := TList.Create();
+  for i := 0 to persons.Count - 1 do
   begin
     Result.Add(TPerson(persons[i]));
+  end;
+end;
+
+
+procedure TEntities.BuildSortIndexes();
+var
+  SPersonByName: TList;
+  i, j: integer;
+  id: longint;
+  comp: integer;
+  a, b, c: integer;
+begin
+  try
+    SPersonByName := TList.Create();
+    for i := 0 to persons.Count - 1 do
+    begin
+      if SPersonByName.Count > 0 then
+      begin
+        // binary search (search inserting index)
+        a := 0;
+        b := SPersonByName.Count - 1;
+        while (a < b) do
+        begin
+          c := (a + b) div 2;
+          comp := CompareStr(TPerson(SPersonByName[c]).Name, TPerson(persons[i]).Name);
+          if comp > 0 then
+          begin
+            b := c - 1;
+          end
+          else if comp < 0 then
+          begin
+            a := c + 1;
+          end
+          else
+          begin
+            a := c;
+            b := c;
+          end;
+        end;
+        if (CompareStr(TPerson(SPersonByName[a]).Name,
+          TPerson(persons[i]).Name) < 0) then
+        begin
+          a := a + 1;
+        end;
+        if a <= SPersonByName.Count - 1 then
+        begin
+          SPersonByName.Insert(a, TPerson(persons[i]));
+        end
+        else
+        begin
+          SPersonByName.Add(TPerson(persons[i]));
+        end;
+      end
+      else
+      begin
+        SPersonByName.Add(TPerson(persons[i]));
+      end;
+    end;
+    for j := 0 to SPersonByName.Count - 1 do
+    begin
+      // get the id (by ordered list)
+      id := TPerson(SPersonByName[j]).Id;
+      // set the sort index
+      GetPerson(id).SX_Name := j;
+    end;
+  finally
+    SPersonByName.Free();
   end;
 end;
 

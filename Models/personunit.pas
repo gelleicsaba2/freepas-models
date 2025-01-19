@@ -14,8 +14,10 @@ type
     FName: string;
     FAddress: string;
     FEmail: string;
-    // indexes
+    // search indexes (when we search a name use this)
     FIX_Name: longword;
+    // sort indexes (when we sort by name use this)
+    FSX_Name: longint;
     procedure SetName(_name: string);
   public
     property Id: longint read FId write FId;
@@ -23,6 +25,7 @@ type
     property Address: string read FAddress write FAddress;
     property Email: string read FEmail write FEmail;
     property IX_Name: longword read FIX_Name;
+    property SX_Name: longint read FSX_Name write FSX_Name;
     function EqualsTo(a: IModel): boolean;
     class function hash(const mystring: string): longword;
   end;
